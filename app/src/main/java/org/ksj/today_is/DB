@@ -1,0 +1,63 @@
+[SQLite 사용법]
+1. DBHelper 클래스 생성(패키지명 -> 오른쪽 마우스 -> new -> Java class) 후 아래 내용 복사
+public class DBHelper extends SQLiteOpenHelper {
+
+    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
+        super(context, name, factory, version);
+    }//생성자
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String main_sql = "create table if not exists main_table(_id integer primary key autoincrement, Date_name text not null, Group_name text not null, Contents text not null, Check_name integer not null, Place text);";
+        String memo_sql = "";//memo_table에 들어갈 create문(main_sql에서 볼 수 있듯이 if not exists, _id integer primary key autoincrement 꼭 추가해 줘야 함(_id는 없으면 에러))
+        String diary_sql = "";//diary_table에 들어갈 create문
+
+        db.execSQL(main_sql);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    String sql = "drop table if exists main_table";
+        onCreate(db);
+    }//버전 업그레이드 시 사용
+}
+
+2. DB 사용하려는 액티비티 클래스에 아래 코드 추가
+DBHelper dbHelper = new DBHelper(add_todo.this, "today_is.db", null, 1);
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+dbHelper.onCreate(db);
+//dbHelper, db 변수명은 마음대로 해도 됨!
+
+3. SELECT문
+String sql = "";//SELECT 쿼리 작성(세미콜론까지 "" 안에 넣어줘야 함)
+Cursor cursor = db.rawQuery(sql2, null);
+while(cursor.moveToNext()){
+    String Date_name = cursor.getString(0);
+    String Group_name = cursor.getString(1);
+    String Contents = cursor.getString(2);
+    Integer Check_name = cursor.getInt(3);
+    String place = cursor.getString(4);
+    /*
+     * main_table 기준으로 작성한 코드(테스트용)
+     * 값 가져올 테이블에 따라 while문 내부 수정
+     */
+
+    //System.out.println(Date_name+" "+Group_name+" "+Contents+" "+Check_name+" "+place+"\n"); //값 잘 가져와지는지 출력해보기 위한 용도
+}
+
+4. INSERT, DELETE, UPDATE문
+String sql = "";//쿼리
+db.execSQL(sql);
+----------------------------------------------------------------------------------------------------
+[DB 테이블]
+<main_table>
+날짜+시간(Date_name), 그룹(Group_name), 내용(Contents), 완료 여부(Check_name), 위치(Place), 시작 시간(Start_time), 알림 시간(Notice_time)
+create table if not exists main_table(_id integer primary key autoincrement, Date_name datetime not null, Group_name text not null, Contents text not null, Check_name integer not null, Place text, Start_time text, Notice_time text);
+
+- SQLite boolean 존재x -> integer(0 == false, 1 == true)
+- 예약어로 구분되는 컬럼명(Date, Group, Check) 뒤에 _name 붙임
+- _id가 고유번호 역할 대신함(SQLite 자체적으로 제공하는 기능)
+
+<memo_table>
+
+<diary_table>

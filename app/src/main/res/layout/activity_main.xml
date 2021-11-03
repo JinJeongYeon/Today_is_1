@@ -8,8 +8,18 @@
     android:orientation="vertical"
     android:weightSum="12">
 
-    <!-- [변수명/ID] 바로 밑에 접어둔 주석 확인 -->
+    <!-- [주의할 점] -->
     <!--
+    * DB 연동, Thread 사용 등과 같이 오류날 것 같은 부분은 try-catch 처리
+    * ToDo, 메모, 일기 추가 시 기기 저장 공간 확인하고 부족한 경우(1GB 이하로 남은 경우) 실패 메시지 띄움
+      -> 저장 공간 부족으로 인한 오류 방지
+    * 수정||오류 사항 있는 경우 java -> 패키지명 -> Temp에 날짜+내용 적어두기
+    -->
+
+    <!-- [변수명/ID] -->
+    <!--
+    [명명 규칙]
+    * 기능 이름_button, 기능 이름_textView ...
     [버튼]
     * 메인 버튼 : main_button
     * 메모 버튼 : memo_button
@@ -19,7 +29,7 @@
     * 공유 버튼 : share_button
     * 그룹 설정 버튼 : group_button
     * ToDo 추가 버튼 : add_button
-    * 년/월 선택 스피너 : date_spinner_button
+    * 년/월 이동 버튼 : date_button
     [아이콘/이미지]
     * 메인 아이콘 : main_icon.png
     * 메모 아이콘 : memo_icon.png
@@ -27,7 +37,7 @@
     * 통계 아이콘 : chart_icon.png
     * 설정 아이콘 : settings_icon.png
     [프래그먼트]
-    * main_Fragment
+    * main_fragment
     [텍스트]
     * 상단바 날짜 표시 : date_textView
     -->
@@ -41,26 +51,25 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="8">
             <TextView
                 android:id="@+id/date_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
-                android:text="2021년 12월"/> <!-- 년/월 표시 -->
+                android:textColor="@color/black" />
             <Button
-                android:id="@+id/date_spinner_button"
+                android:id="@+id/date_button"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/expand_icon"/> <!-- 년/월 선택 스피너 -->
+                android:background="@drawable/expand_icon"/> <!-- 클릭하면 날짜 선택 스피너 뜸 -->
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8">
+            android:layout_weight="3">
 
         </LinearLayout> <!-- 빈 공간 -->
         <LinearLayout
@@ -98,64 +107,13 @@
         </LinearLayout> <!-- ToDo 추가 버튼 -->
     </LinearLayout>
 
-    <!--
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_Fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:name=""/>
-    -->
-
-    <!-- 달력, ToDo 레이아웃 여기서 작성x -> Framgent에 적용할 xml 새로 만들어서 작성 -->
-    <!-- 임시로 추가해둔 부분 -->
-    <!-- 달력 레이아웃, ToDo 레이아웃 개발할 때 지우기 -->
-    <!--
-    메인, 메모, 일기, 통계 모두 activity_main.xml, MainActivity.java에서 코드 작성
-    -->
-    <!--
-    설정, 알림 시간, 그룹 편집, Todo 추가, 메모 추가 액티비티는 별도로 사용
-    -->
-
-    <!-- 달력 레이아웃 -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <!--
-            <fragment
-                android:id="@+id/calendar_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="프래그먼트 관리할 클래스"/>
-                -->
-                <CalendarView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <!-- 캘린더뷰 임시로 넣어놓음 -> 개발할 때 프래그먼트 xml에 추가 -->
-        </LinearLayout> <!-- ScrollView에는 하나의 View만 들어갈 수 있어서 리니어 레이아웃 추가 -->
-    </ScrollView>
-
-    <!-- ToDo 리스트 레이아웃 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:orientation="vertical">
-        <!--
-        <fragment
-            android:id="@+id/todo_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="프래그먼트 관리할 클래스"/>
-            -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <!-- 리사이클러뷰 임시로 넣어놓음 -> 개발할 때 프래그먼트 xml에 추가 -->
-    </LinearLayout>
+        android:name="org.ksj.today_is.main_fragment">
+    </androidx.fragment.app.FragmentContainerView>
 
     <!-- 하단바 레이아웃 -->
     <LinearLayout

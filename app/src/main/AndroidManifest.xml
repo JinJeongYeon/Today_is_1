@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Today_is">
         <activity
+            android:name=".main_time_fragment_dialog"
+            android:exported="false"/>
+        <activity
+            android:name=".add_todo"
+            android:exported="false"/>
+        <activity
+            android:name=".date_dialog"
+            android:exported="false" />
+        <activity
             android:name=".Settings"
             android:exported="false" />
         <activity

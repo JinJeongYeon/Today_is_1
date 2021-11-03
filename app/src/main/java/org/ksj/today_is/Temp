@@ -1,0 +1,82 @@
+[Activity/xml]
+date_dialog + activity_date_dialog.xml(정연)
+=> 이동할 년/월 선택 커스텀 다이얼로그
+
+Diary, Main(정연), Memo
+=> SQLite 데이터 get, set 하기 위한 클래스
+
+DBHelper
+=> SQLite spl문 작성
+
+main_fragment, fragment_main_fragment.xml(정연)
+=> 프래그먼트
+
+main_time_fragment, fragment_main_fragment
+=> ToDo 시간 설정 부분
+
+main_notice_fragment, fragment_notice_fragment
+=> ToDo 알림 시간 설정 부분
+
+main_recyclerview.xml(정연)
+=> ToDo 리스트 띄우기 위한 RecyclerView
+
+[텍스트 크기]
+- 확인/취소 : 15dp
+
+[레이아웃 비율]
+- 최상위 뷰 weightSum : 12
+    - 상단바, 하단바 layout_weight 각각 1
+    - 달력 layout_weight 6
+    - ToDo, 일기 부분 layout_weight 4
+
+[Toast]
+- Toast.LENGHT_SHORT 고정
+
+[정연 한 일]
+2021.10.21
+- 레이아웃 기본 틀 생성
+	 - 아이콘 모두 xxxhdpi 크기 18 사용
+- 기본 아이콘 색상 변경(#D8D8D8/밝은 회색)
+	- 색상 마지막에 변경 예정
+	- <item name="colorPrimary">#D8D8D8</item> <!-- 앱 이름 뜨는 상단 부분, 아이콘 등등 표시되는 부분 색상 -->
+- 타이틀바(==액션바/상단 제목 부분) + 타이틀 제거
+	- themes.xml -> <item name="windowActionBar">false</item> <item name="windowNoTitle">true</item>
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.10.22~2021.10.23
+- 년/월 선택 다이얼로그 구현 완료
+    - 확인 버튼 누른 경우
+        - 왼쪽 위 년/월 표시 텍스트값 변경
+        - 다이얼로그 종료
+        - 선택한 년/월 값 main_fragment로 전달
+    - 취소 버튼 누른 경우
+        - 다이얼로그 종료
+- 하단바 버튼 누른 경우 프래그먼트 변경 구현
+- ToDo 추가 버튼 누른 경우 add_todo 액티비티로 이동
+    - putExtra로 년/월/일 값 전달
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.10.24
+- ToDo 추가 화면 구현 중(구현 완료 후 DB에 INSERT 잘 되는지 확인 예정)
+- DB 연동 중
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.10.26
+- ToDo 추가 화면 구현 중
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.10.27
+- DB 연동+테스트 완료
+- add_button 수정
+    - 선택된 메뉴(ToDo, 메모, 일기)에 따라 다르게 동작하도록 설정
+    - 통계, 설정 메뉴에서 비활성화 구현
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+[정연 해야 할 일]
+- 1990~2100년도 설정 빠진부분 없는지 확인(완료)
+- DB 연동(완료)
+- 통계 구현
+- DB에 저장된 데이터 모두 불러와서 데이터 있는 경우 달력에 . 표시
+- 갤럭시에서 돌려본 결과 아이콘 잘림 -> 크기 변경 필요
+- 맞춤법 검사(ex Toast 메시지)
+- 높이 layout_weight -> wrap_content로 수정 필요
+- 그룹 접고 열 때 레이아웃 완전히 접고 펼 수 있게 수정해야 함
+- todo 시작 시간 추가(완료)
+- 알림 시간 디자인 수정
+- 구글 맵||네이버 지도
