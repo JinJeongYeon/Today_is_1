@@ -31,6 +31,8 @@
         <entry key="..\:/Users/KOREA/Today_is/app/src/main/res/layout/main_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/KOREA/Today_is/app/src/main/res/layout/main_group_recyclerview.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/KOREA/Today_is/app/src/main/res/layout/main_recyclerview.xml" value="0.25" />
+        <entry key="..\:/Users/KOREA/Today_is/app/src/main/res/layout/main_todo_list_item_layout.xml" value="0.25" />
+        <entry key="..\:/Users/KOREA/Today_is/app/src/main/res/layout/main_todo_list_layout.xml" value="0.33" />
       </map>
     </option>
   </component>

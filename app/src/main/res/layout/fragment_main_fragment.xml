@@ -26,7 +26,8 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/todo_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:name="org.ksj.today_is.main_fragment_todo_list_fragment"/>
     </LinearLayout>
 
 </LinearLayout>
