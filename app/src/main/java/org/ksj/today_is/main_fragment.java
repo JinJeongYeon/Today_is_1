@@ -1,6 +1,7 @@
 package org.ksj.today_is;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -42,6 +43,7 @@ public class main_fragment extends Fragment {
         year = calendarView_date.getYear()+1900;
         month = calendarView_date.getMonth()+1;
         day = calendarView_date.getDay();
+//        main_fragment_to_MainActivity(year, month, day);
 
 //        System.out.println("선택된 날짜   "+year+"년 "+month+"월 "+day+"일");
 
@@ -62,10 +64,15 @@ public class main_fragment extends Fragment {
                 month = calendarView_month+1;
                 day = calendarView_day;//선택한 날짜값 갱신
 //                System.out.println("가져온 데이터 출력   "+year+"년 "+month+"월 "+day+"일");
+//                main_fragment_to_MainActivity(year, month, day);
             }
         });/////main_calendarView setOnDateChangeListener
         /////main_calendarView
 
         return rootView;
-    }
+    }//onCreateView
+
+//    public void main_fragment_to_MainActivity(int year, int month, int day){
+//
+//    }//main_fragment -> MainActivity 날짜 값 전달
 }

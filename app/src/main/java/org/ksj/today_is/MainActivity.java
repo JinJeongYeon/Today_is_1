@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -113,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
         Date date= new Date(now);
         //Log.d("Date",date.toString());
 
-        year = date.getYear()+1900;
-        month = date.getMonth()+1;
-        day = date.getDate();
+//        year = date.getYear()+1900;
+//        month = date.getMonth()+1;
+//        day = date.getDate();
 
         date_textView.setText(year+"년 "+month+"월"); //앱 처음 시작될 때 띄울 디폴트값(현재 년/월) 지정
         Bundle bundle = new Bundle();
@@ -274,6 +275,12 @@ public class MainActivity extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                main_fragment test = (main_fragment) getSupportFragmentManager().findFragmentById(R.id.main_Fragment);
+                year = test.year;
+                month = test.month;
+                day = test.day;
+                
+//                System.out.println("프래그먼트에서 선택한 날짜     "+year+"년 "+month+"월 "+day+"일");
                 Intent intent = new Intent(getApplicationContext(), add_todo.class);
                 intent.putExtra("year",year);
                 intent.putExtra("month",month);
@@ -344,11 +351,11 @@ public class MainActivity extends AppCompatActivity {
                 add_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), add_todo.class);
-                        intent.putExtra("year",year);
-                        intent.putExtra("month",month);
-                        intent.putExtra("day",day);
-                        startActivityForResult(intent,101);
+//                        Intent intent = new Intent(getApplicationContext(), add_todo.class);
+//                        intent.putExtra("year",year);
+//                        intent.putExtra("month",month);
+//                        intent.putExtra("day",day);
+//                        startActivityForResult(intent,101);
                     }
                 });//ToDo 추가 화면으로 이동
                 break;

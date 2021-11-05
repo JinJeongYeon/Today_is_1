@@ -63,6 +63,8 @@ public class add_todo extends AppCompatActivity {
         month = intent.getIntExtra("month",default_month);
         day = intent.getIntExtra("day",default_day);
 
+        System.out.println("MainActivity에서 받아온 값 == "+year+"년 "+month+"월 "+day+"일");
+
         if(month.toString().length() == 1){
             temp_month = "0" + month.toString();
         }//1~9월
