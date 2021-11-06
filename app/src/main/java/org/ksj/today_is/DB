@@ -50,8 +50,8 @@ String sql = "";//쿼리
 db.execSQL(sql);
 ----------------------------------------------------------------------------------------------------
 [DB 테이블]
-<main_table>
-날짜+시간(Date_name), 그룹(Group_name), 내용(Contents), 완료 여부(Check_name), 위치(Place), 시작 시간(Start_time), 알림 시간(Notice_time)
+<main_table> //ToDo 리스트 저장
+날짜(Date_name), 그룹(Group_name), 내용(Contents), 완료 여부(Check_name/0 == 미완료, 1 == 완료), 위치(Place/장소 없으면 null), 시작 시간(Start_time), 알림 시간(Notice_time)
 create table if not exists main_table(_id integer primary key autoincrement, Date_name datetime not null, Group_name text not null, Contents text not null, Check_name integer not null, Place text, Start_time text, Notice_time text);
 
 - SQLite boolean 존재x -> integer(0 == false, 1 == true)
@@ -61,3 +61,5 @@ create table if not exists main_table(_id integer primary key autoincrement, Dat
 <memo_table>
 
 <diary_table>
+
+<main_group_table> //ToDo 그룹 저장

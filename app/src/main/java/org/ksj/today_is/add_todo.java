@@ -25,9 +25,18 @@ public class add_todo extends AppCompatActivity {
     Integer year, month, day, default_year, default_month, default_day;
     Button save_button, cancel_button;
     EditText todo_editText;//할 일 입력하는 EditText
-    String todo_string;//할 일 입력하는 EditText에서 받아온 값
-    String temp_month, temp_day, temp_date;//temp_date == 년,월,일 붙여 String으로 바꾼 값
+    String temp_month, temp_day;
     String temp_start_time = "0900", temp_notice_time = "0900";//9시 00분으로 초기화
+
+    /////Fragment
+    main_group_choice_fragment main_group_choice_fragment = (main_group_choice_fragment) getSupportFragmentManager().findFragmentById(R.id.main_time_fragment);
+    main_start_time_fragment main_start_time_fragment = (main_start_time_fragment) getSupportFragmentManager().findFragmentById(R.id.main_start_time_fragment);
+    main_time_fragment main_time_fragment = (main_time_fragment) getSupportFragmentManager().findFragmentById(R.id.main_time_fragment);
+    main_place_fragment main_place_fragment = (main_place_fragment) getSupportFragmentManager().findFragmentById(R.id.main_place_fragment);
+    /////Fragment
+    /////DB에 Insert 할 변수
+    String Date_name, Group_name, Contents, Place, Start_time, Notice_time;
+    /////DB에 Insert 할 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +72,7 @@ public class add_todo extends AppCompatActivity {
         month = intent.getIntExtra("month",default_month);
         day = intent.getIntExtra("day",default_day);
 
-        System.out.println("MainActivity에서 받아온 값 == "+year+"년 "+month+"월 "+day+"일");
+//        System.out.println("MainActivity에서 받아온 값 == "+year+"년 "+month+"월 "+day+"일");
 
         if(month.toString().length() == 1){
             temp_month = "0" + month.toString();
@@ -86,23 +95,29 @@ public class add_todo extends AppCompatActivity {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /////입력한 ToDo 값 받아와서 처리
-                todo_string = todo_editText.getText().toString();
-                temp_date = year.toString()+temp_month+temp_day;
+                /////입력한 값 받아와서 처리
+                Date_name = year.toString()+temp_month.toString()+temp_day.toString();
+//                System.out.println("Date_name 값 == "+Date_name);
+//                Group_name
+                Contents = todo_editText.getText().toString();
+                Place = null;
+//                Start_time
+//                Notice_time
+                /////입력한 값 받아와서 처리
 
-                if(todo_string.isEmpty()){
+                if(Contents.isEmpty()){
                     Toast.makeText(getApplicationContext(), "할 일을 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 }//할 일 아무것도 입력하지 않은 경우
                 else{
 
-//                    try {
-//                        //DB INSERT
-//                        //완료 여부 디폴트값 false
-//                        String sql3 = "DROP TABLE main_table;";
-////                    String sql3 = "DELETE FROM main_table;";
+                    try {
+                        //DB INSERT
+                        //완료 여부 디폴트값 false
+//                        String sql3 = "DROP TABLE main_table;"; //test용
+//                        String sql3 = "DELETE FROM main_table;"; //test용
 //                        db.execSQL(sql3); //sql3 삭제해야 함/////////////////////////////////
 //
-//                        String sql = "INSERT INTO main_table('Date_name','Group_name','Contents','Check_name','Place','Start_time','Notice_time') values('" + temp_date + "','그룹1','" + todo_string + "','false','없음');";
+//                        String sql = "INSERT INTO main_table('Date_name','Group_name','Contents','Check_name','Place','Start_time','Notice_time') values('" + Date_name + "','"+Group_name+"','" + Contents + "','0','"+Place+"','"+Start_time+"','"+Notice_time+"');";
 //                        db.execSQL(sql);
 //
 //                        String sql2 = "SELECT * FROM main_table;";
@@ -123,11 +138,11 @@ public class add_todo extends AppCompatActivity {
 //                        Intent intent = new Intent();
 //                        setResult(RESULT_OK, intent);
 //                        finish();//인텐트 종료
-//                    }
-//                    catch (Exception e){
-//                        e.printStackTrace();
-//                        Toast.makeText(getApplicationContext(),"오류가 발생했습니다.",Toast.LENGTH_SHORT).show();
-//                    }//DB 오류 생긴 경우
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),"오류가 발생했습니다.",Toast.LENGTH_SHORT).show();
+                    }//DB 오류 생긴 경우
                 }//할 일 입력한 경우
                 /////입력한 ToDo 값 받아와서 처리
             }
