@@ -92,27 +92,30 @@ public class group_edit extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "그룹명을 입력하세요.", Toast.LENGTH_SHORT).show();
                             }//값 입력하지 않은 경우
                             else{
-//                                String select_sql = "SELECT DISTINCT Group_name FROM main_group_table;";
-//                                Cursor cursor = db.rawQuery(select_sql,null);
-//                                Boolean check = false;//일치하는 그룹명 있음 == true, 없음 == false;
-//
-//                                //이미 존재하는 값인지 판별
-//                                while(cursor.moveToNext()){
-//                                    System.out.println("그룹명 == "+cursor.getString(0));
-//                                    if(cursor.getString(0).equals(dialog_editText_string[0])){
-//                                        Toast.makeText(getApplicationContext(), "이미 존재하는 그룹입니다.", Toast.LENGTH_SHORT).show();
-//                                        check = true;
-//                                        break;
-//                                    }//일치하는 값 있는 경우
-//                                }
-//
-//                                if(!check){
-//                                    String insert_sql = "INSERT INTO main_group_table(Group_name) VALUES ('"+dialog_editText_string[0]+"');";
-//                                    db.execSQL(insert_sql);
-//                                    dialog.dismiss();
-//
-//                                    Toast.makeText(getApplicationContext(), "저장이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-//                                }//일치하는 그룹명 없는 경우
+                                Boolean check = false;//일치하는 그룹명 있음 == true, 없음 == false;
+
+                                //이미 존재하는 그룹명인지 판별
+                                for(String i : group_arrayList){
+                                    if(dialog_editText_string[0].equals(i)){
+                                        check=true;
+                                        Toast.makeText(getApplicationContext(), "이미 존재하는 그룹명입니다.",Toast.LENGTH_SHORT).show();
+                                        break;
+                                    }//동일한 그룹명 있는 경우
+                                }
+                                //이미 존재하는 그룹명인지 판별
+
+
+                                if(!check){
+                                    String insert_sql = "INSERT INTO main_group_table(Group_name) VALUES ('"+dialog_editText_string[0]+"');";
+                                    db.execSQL(insert_sql);
+                                    dialog.dismiss();
+
+                                    group_arrayList.add(dialog_editText_string[0]);
+
+                                    //RecyclerView 갱신
+                                    
+                                    Toast.makeText(getApplicationContext(), "저장이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                }//일치하는 그룹명 없는 경우
                             }//값 입력한 경우
                         }
                     });//dialog_save_button setOnClickListener
@@ -150,5 +153,40 @@ public class group_edit extends AppCompatActivity {
         else if (fragment_num == 2) {
 
         }//memo_fragment에서 호출한 경우
-    }
+    }//onCreate
+
+    public void change_recyclerView(ArrayList<String> group_arrayList){
+        
+    }//RecyclerView 갱신
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        System.out.println("onStart 호출");
+    }//onStart
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("onResume 호출");
+    }//onResume
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("onPause 호출");
+    }//onPuase
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("onStop 호출");
+    }//onStop
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("onDestroy 호출");
+    }//onDestroy
 }
