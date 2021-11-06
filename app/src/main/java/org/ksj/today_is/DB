@@ -43,6 +43,9 @@ while(cursor.moveToNext()){
      */
 
     //System.out.println(Date_name+" "+Group_name+" "+Contents+" "+Check_name+" "+place+"\n"); //값 잘 가져와지는지 출력해보기 위한 용도
+
+[Tip!]
+_id를 제외하고 컬럼이 하나만 있는 테이블인 경우 -> SELECT DISTINCT 사용하는 경우 컬럼을 *로 해버리면 _id까지 포함하여 모든 데이터가 조회되므로 반드시 중복 제거할 컬럼명 적어줘야 함
 }
 
 4. INSERT, DELETE, UPDATE문
@@ -63,3 +66,5 @@ create table if not exists main_table(_id integer primary key autoincrement, Dat
 <diary_table>
 
 <main_group_table> //ToDo 그룹 저장
+그룹명(Group_name)
+create table if not exists main_group_stable(_id integer primary key autoincrement, Group_name text nol null);

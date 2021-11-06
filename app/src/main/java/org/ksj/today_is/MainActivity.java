@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -104,9 +105,13 @@ public class MainActivity extends AppCompatActivity {
         /////MainActivity.java
 
         /////////////////DB
-        DBHelper dbHelper = new DBHelper(MainActivity.this, "today_is_db.db",null,1);
+        DBHelper dbHelper = new DBHelper(MainActivity.this, "today_is.db",null,1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         dbHelper.onCreate(db);
+
+        //main_group_table에 "기본 그룹" insert
+        String default_group_insert_sql = "INSERT INTO main_group_table(Group_name) VALUES ('기본 그룹');";
+        db.execSQL(default_group_insert_sql);
         /////////////////DB
 
         //////////////////date_textView
@@ -266,7 +271,9 @@ public class MainActivity extends AppCompatActivity {
         group_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), group_edit.class);
+                intent.putExtra("fragment_num",fragment_num);
+                startActivity(intent);
             }
         });
         //////////////////group_button
