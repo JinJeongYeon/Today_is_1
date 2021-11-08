@@ -1,6 +1,8 @@
 package org.ksj.today_is;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,11 +16,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class add_todo extends AppCompatActivity {
@@ -27,10 +32,10 @@ public class add_todo extends AppCompatActivity {
     EditText todo_editText;//할 일 입력하는 EditText
     String temp_month, temp_day;
     String temp_start_time = "0900", temp_notice_time = "0900";//9시 00분으로 초기화
+    Spinner group_choice_spinner;
 
     /////Fragment
-    main_group_choice_fragment main_group_choice_fragment = (main_group_choice_fragment) getSupportFragmentManager().findFragmentById(R.id.main_time_fragment);
-    main_start_time_fragment main_start_time_fragment = (main_start_time_fragment) getSupportFragmentManager().findFragmentById(R.id.main_start_time_fragment);
+    main_start_time_fragment main_start_time_fragment = (org.ksj.today_is.main_start_time_fragment) getSupportFragmentManager().findFragmentById(R.id.main_start_time_fragment);
     main_time_fragment main_time_fragment = (main_time_fragment) getSupportFragmentManager().findFragmentById(R.id.main_time_fragment);
     main_place_fragment main_place_fragment = (main_place_fragment) getSupportFragmentManager().findFragmentById(R.id.main_place_fragment);
     /////Fragment
@@ -53,6 +58,7 @@ public class add_todo extends AppCompatActivity {
         save_button = (Button) findViewById(R.id.save_button);
         cancel_button = (Button) findViewById(R.id.cancel_button);
         todo_editText = (EditText) findViewById(R.id.todo_editText);
+        group_choice_spinner = (Spinner) findViewById(R.id.group_choice_spinner);
         /////findViewById
 
         /////todo_editText
@@ -66,7 +72,7 @@ public class add_todo extends AppCompatActivity {
         default_month = date.getMonth()+1;
         default_day = date.getDate();
 
-        /////MainActivity로부터 값 받아옴
+        /////MainActivity에서 값 받아옴
         Intent intent = getIntent();
         year = intent.getIntExtra("year",default_year);
         month = intent.getIntExtra("month",default_month);
@@ -89,7 +95,25 @@ public class add_todo extends AppCompatActivity {
         }//10~31일
         
 //        Log.d("년월",year+"년 "+month+"월 "+day+"일");
-        /////MainActivity로부터 값 받아옴
+        /////MainActivity에서 값 받아옴
+        
+        /////main_group_table에서 그룹 정보 가져와 Spinner에 적용
+        ArrayList<String> group_arrayList = new ArrayList<>();
+        String get_group_sql = "SELECT DISTINCT Group_name FROM main_group_table;";
+        Cursor cursor = db.rawQuery(get_group_sql, null);
+        while(cursor.moveToNext()){
+            group_arrayList.add(cursor.getString(0));
+//            System.out.println("가져온 그룹 == "+cursor.getString(0));
+        }
+
+//        for(String i : group_arrayList){
+//            System.out.println("가져온 그룹 == "+i);
+//        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, group_arrayList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        group_choice_spinner.setAdapter(adapter);
+        /////main_group_table에서 그룹 정보 가져와 Spinner에 적용
 
         /////save_button
         save_button.setOnClickListener(new View.OnClickListener() {
@@ -98,10 +122,11 @@ public class add_todo extends AppCompatActivity {
                 /////입력한 값 받아와서 처리
                 Date_name = year.toString()+temp_month.toString()+temp_day.toString();
 //                System.out.println("Date_name 값 == "+Date_name);
-//                Group_name
+                Group_name = group_choice_spinner.getSelectedItem().toString();//스피너에서 값 가져옴 //코드 테스트
                 Contents = todo_editText.getText().toString();
                 Place = null;
-//                Start_time
+                Start_time = time_to_string("main_start_time_fragment");
+                System.out.println("시작 시간 == "+Start_time);
 //                Notice_time
                 /////입력한 값 받아와서 처리
 
@@ -176,5 +201,33 @@ public class add_todo extends AppCompatActivity {
             }
         });
         /////cancel_button
-    }
+    }//onCreate
+
+    public String time_to_string(String fragment){
+        String hour ="", minute ="";
+        Integer hour2;
+        if(fragment.equals("main_start_time_fragment")){
+//            hour
+//            minute = main_start_time_fragment.temp_minute;
+        }//시작 시간 프래그먼트에서 값 가져오는 경우
+        else{
+//            hour = main_start_time_fragment.temp_hour.toString();
+//            minute = main_start_time_fragment.temp_minute.toString();
+        }//알림 시간 프래그먼트에서 값 가져오는 경우
+
+        String temp_time;
+//        String temp_hour = hour.toString();
+//        String temp_minute = minute.toString();
+//
+//        if(temp_hour.length() == 1){
+//            temp_hour = "0"+temp_hour;
+//        }//0~9시
+//        if(temp_minute.length() == 1){
+//            temp_minute = "0"+temp_minute;
+//        }//0~9분
+
+        temp_time = hour+minute;
+
+        return temp_time;
+    }//선택한 시 분 가져와 4자리 문자열 형태(ex "0900")으로 바꿈
 }

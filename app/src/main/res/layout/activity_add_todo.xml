@@ -25,13 +25,25 @@
             android:gravity="top">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/main_group_choice_fragment"
+                android:layout_height="wrap_content"
+                android:weightSum="10">
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:name="org.ksj.today_is.main_group_choice_fragment"/><!-- 그룹 -->
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/><!-- 빈 공간 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8">
+                    <Spinner
+                        android:id="@+id/group_choice_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout><!-- 그룹 선택 스피너 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/><!-- 빈 공간 -->
             </LinearLayout><!-- 그룹 선택 -->
 
             <LinearLayout
@@ -61,8 +73,8 @@
                     android:id="@+id/main_start_time_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="org.ksj.today_is.main_start_time_fragment"/><!-- 시간 -->
-            </LinearLayout><!-- 시간 선택 -->
+                    android:name="org.ksj.today_is.main_start_time_fragment"/><!-- 시작 시간 -->
+            </LinearLayout><!-- 시작 시간 선택 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,8 +83,8 @@
                     android:id="@+id/main_time_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="org.ksj.today_is.main_time_fragment"/><!-- 시간 -->
-            </LinearLayout><!-- 시간 선택 -->
+                    android:name="org.ksj.today_is.main_time_fragment"/><!-- 알림 시간 -->
+            </LinearLayout><!-- 알림 시간 선택 -->
 
             <LinearLayout
                 android:layout_width="match_parent"

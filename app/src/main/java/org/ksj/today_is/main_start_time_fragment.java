@@ -1,14 +1,19 @@
 package org.ksj.today_is;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -17,7 +22,7 @@ public class main_start_time_fragment extends Fragment {
     Button okay_button, cancel_button;
     TextView start_time_textView;
     Integer hour, minute;
-    String temp_hour, temp_minute; //9시 5분 -> 09시 5분
+    String temp_hour="", temp_minute=""; //9시5분 -> 09시05분
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +60,6 @@ public class main_start_time_fragment extends Fragment {
                 okay_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         hour = hour_numberPicker.getValue();
                         minute = minute_numberPicker.getValue();
 

@@ -52,10 +52,12 @@ public class main_time_fragment extends Fragment {
                 if(set_time){
                     set_time = false;
                     time_textView.setVisibility(View.INVISIBLE);
+                    onOff_textView.setText("알림 Off");
                 }//true
                 else{
                     set_time = true;
                     time_textView.setVisibility(View.VISIBLE);
+                    onOff_textView.setText("알림 On");
 
                     /////time_textView
                     time_textView.setOnClickListener(new View.OnClickListener() {
