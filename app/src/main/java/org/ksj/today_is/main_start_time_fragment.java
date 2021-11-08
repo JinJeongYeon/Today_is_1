@@ -24,6 +24,8 @@ public class main_start_time_fragment extends Fragment {
     Integer hour, minute;
     String temp_hour="", temp_minute=""; //9시5분 -> 09시05분
 
+    private OnTimePickerSetListener onTimePickerSetListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class main_start_time_fragment extends Fragment {
 
                         start_time_textView.setText(temp_hour+"시 "+temp_minute+"분");
                         dialog.dismiss();
+
+                        onTimePickerSetListener.onTimePickerSet(temp_hour, temp_minute);
                     }
                 });//okay_button setOnClickListener
 
@@ -94,5 +98,26 @@ public class main_start_time_fragment extends Fragment {
         /////start_time_textView
 
         return rootView;
+    }
+
+    public interface OnTimePickerSetListener{
+        void onTimePickerSet(String hour, String minute);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof OnTimePickerSetListener){
+            onTimePickerSetListener = (OnTimePickerSetListener) context;
+        }
+        else{
+            throw new RuntimeException(context.toString());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onTimePickerSetListener = null;
     }
 }

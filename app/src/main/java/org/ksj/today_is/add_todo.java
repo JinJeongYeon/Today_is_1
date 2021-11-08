@@ -26,13 +26,20 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class add_todo extends AppCompatActivity {
+public class add_todo extends AppCompatActivity implements main_start_time_fragment.OnTimePickerSetListener {
     Integer year, month, day, default_year, default_month, default_day;
     Button save_button, cancel_button;
     EditText todo_editText;//할 일 입력하는 EditText
     String temp_month, temp_day;
     String temp_start_time = "0900", temp_notice_time = "0900";//9시 00분으로 초기화
     Spinner group_choice_spinner;
+    String temp_hour2, temp_minute2;
+
+    @Override
+    public void onTimePickerSet(String hour, String minute) {
+        temp_hour2 = hour;
+        temp_minute2 = minute;
+    }
 
     /////Fragment
     main_start_time_fragment main_start_time_fragment = (org.ksj.today_is.main_start_time_fragment) getSupportFragmentManager().findFragmentById(R.id.main_start_time_fragment);
@@ -205,7 +212,6 @@ public class add_todo extends AppCompatActivity {
 
     public String time_to_string(String fragment){
         String hour ="", minute ="";
-        Integer hour2;
         if(fragment.equals("main_start_time_fragment")){
 //            hour
 //            minute = main_start_time_fragment.temp_minute;
@@ -226,7 +232,7 @@ public class add_todo extends AppCompatActivity {
 //            temp_minute = "0"+temp_minute;
 //        }//0~9분
 
-        temp_time = hour+minute;
+        temp_time = temp_hour2+temp_minute2;
 
         return temp_time;
     }//선택한 시 분 가져와 4자리 문자열 형태(ex "0900")으로 바꿈
