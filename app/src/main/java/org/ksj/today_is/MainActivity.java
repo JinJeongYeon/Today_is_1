@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         //main_group_table에 "기본 그룹" insert
         String default_group_insert_sql = "INSERT INTO main_group_table(Group_name) VALUES ('기본 그룹');";
         db.execSQL(default_group_insert_sql);
+        //항상 SELECT 시 기본 그룹이 맨 위에 뜨게 하기 위해 INSERT하고 DISTINCT로 검색
         /////////////////DB
 
         //////////////////date_textView

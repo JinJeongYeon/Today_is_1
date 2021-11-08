@@ -79,7 +79,13 @@ main_recyclerview.xml(정연)
 2021.11.05
 - ToDo CalendarView Fragment에서 날짜값 가져와 add_todo Fragment로 전달
 - 장소 Insert 위해 네이버 지도 연동 중
-- 네이버 지도 API 연동 Could not resolve all files for configuration ':app:debugRuntimeClasspath'. 오류 해결 필요(해결될 때 까지 commit x)
+- 네이버 지도 API 연동 Could not resolve all files for configuration ':app:debugRuntimeClasspath'. 오류 해결 필요
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.11.06
+- 한 일 추가 예정
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.11.08
+- add_todo.xml에서 그룹 선택 RecyclerView -> Spinner로 변경
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 [네이버 지도 연동 정보]
@@ -102,3 +108,4 @@ Client Secret(X-NCP-APIGW-API-KEY) : NkysF8ULGyC1oucWDOU0CL5JcAzrKJhBUF3QGr0Z
 - 알림 시간 디자인 수정
 - 구글 맵||네이버 지도
 - 인터넷 연결 안된 경우 구글 맵 사용 불가 처리
+- SELECT 시 기본 그룹이 항상 맨 위에 뜨게 할 새로운 방법 생각
