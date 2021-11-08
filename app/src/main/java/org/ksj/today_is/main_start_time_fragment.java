@@ -22,7 +22,7 @@ public class main_start_time_fragment extends Fragment {
     Button okay_button, cancel_button;
     TextView start_time_textView;
     Integer hour, minute;
-    String temp_hour="", temp_minute=""; //9시5분 -> 09시05분
+    String temp_hour="09", temp_minute="00"; //9시5분 -> 09시05분
 
     private OnTimePickerSetListener onTimePickerSetListener;
 

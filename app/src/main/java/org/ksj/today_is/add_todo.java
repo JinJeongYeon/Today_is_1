@@ -33,12 +33,12 @@ public class add_todo extends AppCompatActivity implements main_start_time_fragm
     String temp_month, temp_day;
     String temp_start_time = "0900", temp_notice_time = "0900";//9시 00분으로 초기화
     Spinner group_choice_spinner;
-    String temp_hour2, temp_minute2;
+    String temp_hour = "09", temp_minute = "00";//초기화
 
     @Override
     public void onTimePickerSet(String hour, String minute) {
-        temp_hour2 = hour;
-        temp_minute2 = minute;
+        temp_hour = hour;
+        temp_minute = minute;
     }
 
     /////Fragment
@@ -232,7 +232,7 @@ public class add_todo extends AppCompatActivity implements main_start_time_fragm
 //            temp_minute = "0"+temp_minute;
 //        }//0~9분
 
-        temp_time = temp_hour2+temp_minute2;
+        temp_time = temp_hour+temp_minute;
 
         return temp_time;
     }//선택한 시 분 가져와 4자리 문자열 형태(ex "0900")으로 바꿈
