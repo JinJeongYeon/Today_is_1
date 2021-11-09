@@ -2,9 +2,11 @@ package org.ksj.today_is;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -27,7 +29,30 @@ public class main_time_fragment extends Fragment {
     TextView onOff_textView, time_textView;
     Boolean set_time = false;//시간 설정 Off == false, On == true
     Integer hour, minute;
-    String temp_hour, temp_minute;//9시 5분 -> 09시 05분 변환 위한 문자열
+    String temp_hour = "09", temp_minute = "00";//9시 5분 -> 09시 05분 변환 위한 문자열
+
+    private main_time_fragment.OnTimePickerSetListener onTimePickerSetListener;
+
+    public interface OnTimePickerSetListener{
+        void onTimePickerSet_notice(String hour, String minute, Boolean check);
+    }//check true == 알림 On, false == 알림 Off
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof main_time_fragment.OnTimePickerSetListener){
+            onTimePickerSetListener = (main_time_fragment.OnTimePickerSetListener) context;
+        }
+        else{
+            throw new RuntimeException(context.toString());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onTimePickerSetListener = null;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,10 +89,13 @@ public class main_time_fragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             show_time_dialog();
+                            onTimePickerSetListener.onTimePickerSet_notice(temp_hour, temp_minute, set_time);
                         }
                     });//time_textView setOnClickListener
                     /////time_textView
                 }//false
+
+                onTimePickerSetListener.onTimePickerSet_notice(temp_hour, temp_minute, set_time);
             }
         });//onOff_textView setOnClickListener
         /////onOff_textView
@@ -79,6 +107,8 @@ public class main_time_fragment extends Fragment {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.activity_main_time_fragment_dialog);
         dialog.show();
+
+
 
         /////activity_main_time_fragment_dialog
         NumberPicker hour_numberPicker, minute_numberPicker;
@@ -121,6 +151,8 @@ public class main_time_fragment extends Fragment {
 
                 time_textView.setText(temp_hour+"시 "+temp_minute+"분");
                 dialog.dismiss();
+
+                onTimePickerSetListener.onTimePickerSet_notice(temp_hour, temp_minute, set_time);
             }
         });//okay_button setOnClickListener
 

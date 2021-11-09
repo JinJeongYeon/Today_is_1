@@ -87,6 +87,8 @@ main_recyclerview.xml(정연)
 2021.11.08
 - add_todo.xml에서 그룹 선택 Fragment -> Spinner로 변경
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+2021.11.09
+- ToDo DB INSERT 구현+테스트 완료
 
 [네이버 지도 연동 정보]
 Application 이름 : TodayIs(영문자, - 만 허용)

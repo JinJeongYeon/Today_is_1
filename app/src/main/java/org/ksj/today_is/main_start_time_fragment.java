@@ -31,6 +31,8 @@ public class main_start_time_fragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main_start_time_fragment,container,false);
 
+        onTimePickerSetListener.onTimePickerSet_start(temp_hour, temp_minute);
+
         /////findViewById
         start_time_textView = rootView.findViewById(R.id.start_time_textView);
         /////findViewById
@@ -82,7 +84,7 @@ public class main_start_time_fragment extends Fragment {
                         start_time_textView.setText(temp_hour+"시 "+temp_minute+"분");
                         dialog.dismiss();
 
-                        onTimePickerSetListener.onTimePickerSet(temp_hour, temp_minute);
+                        onTimePickerSetListener.onTimePickerSet_start(temp_hour, temp_minute);
                     }
                 });//okay_button setOnClickListener
 
@@ -101,7 +103,7 @@ public class main_start_time_fragment extends Fragment {
     }
 
     public interface OnTimePickerSetListener{
-        void onTimePickerSet(String hour, String minute);
+        void onTimePickerSet_start(String hour, String minute);
     }
 
     @Override

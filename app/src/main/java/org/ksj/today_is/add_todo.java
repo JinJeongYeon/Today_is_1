@@ -26,19 +26,28 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class add_todo extends AppCompatActivity implements main_start_time_fragment.OnTimePickerSetListener {
+public class add_todo extends AppCompatActivity implements main_start_time_fragment.OnTimePickerSetListener, main_time_fragment.OnTimePickerSetListener {
     Integer year, month, day, default_year, default_month, default_day;
     Button save_button, cancel_button;
     EditText todo_editText;//할 일 입력하는 EditText
     String temp_month, temp_day;
     String temp_start_time = "0900", temp_notice_time = "0900";//9시 00분으로 초기화
     Spinner group_choice_spinner;
-    String temp_hour = "09", temp_minute = "00";//초기화
+    String temp_hour_start = "09", temp_minute_start = "00";//초기화
+    String temp_hour_notice = "09", temp_minute_notice = "00";//초기화
+    Boolean notice_check = false;//true == 알림 On, false == 알림 Off
 
     @Override
-    public void onTimePickerSet(String hour, String minute) {
-        temp_hour = hour;
-        temp_minute = minute;
+    public void onTimePickerSet_start(String hour, String minute) {
+        temp_hour_start = hour;
+        temp_minute_start = minute;
+    }
+
+    @Override
+    public void onTimePickerSet_notice(String hour, String minute, Boolean check) {
+        temp_hour_notice = hour;
+        temp_minute_notice  = minute;
+        notice_check = check;
     }
 
     /////Fragment
@@ -77,7 +86,7 @@ public class add_todo extends AppCompatActivity implements main_start_time_fragm
 
         default_year = date.getYear()+1900;
         default_month = date.getMonth()+1;
-        default_day = date.getDate();
+        default_day = date.getDay();
 
         /////MainActivity에서 값 받아옴
         Intent intent = getIntent();
@@ -133,39 +142,32 @@ public class add_todo extends AppCompatActivity implements main_start_time_fragm
                 Contents = todo_editText.getText().toString();
                 Place = null;
                 Start_time = time_to_string("main_start_time_fragment");
-                System.out.println("시작 시간 == "+Start_time);
-//                Notice_time
+//                System.out.println("시작 시간 == "+Start_time);
+                if(notice_check) {
+                    Notice_time = time_to_string("main_time_fragment");
+                }//알림 On
+                else{
+                    Notice_time = null;
+                }//알림 Off
+//                System.out.println("알림 시간 == "+Notice_time);
+//                System.out.println("알림 여부 == "+notice_check);
                 /////입력한 값 받아와서 처리
 
                 if(Contents.isEmpty()){
                     Toast.makeText(getApplicationContext(), "할 일을 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 }//할 일 아무것도 입력하지 않은 경우
                 else{
-
                     try {
                         //DB INSERT
-                        //완료 여부 디폴트값 false
-//                        String sql3 = "DROP TABLE main_table;"; //test용
-//                        String sql3 = "DELETE FROM main_table;"; //test용
-//                        db.execSQL(sql3); //sql3 삭제해야 함/////////////////////////////////
-//
-//                        String sql = "INSERT INTO main_table('Date_name','Group_name','Contents','Check_name','Place','Start_time','Notice_time') values('" + Date_name + "','"+Group_name+"','" + Contents + "','0','"+Place+"','"+Start_time+"','"+Notice_time+"');";
-//                        db.execSQL(sql);
-//
-//                        String sql2 = "SELECT * FROM main_table;";
-//                        Cursor cursor = db.rawQuery(sql2, null);
-//                        while (cursor.moveToNext()) {
-//                            String _id = cursor.getString(0);
-//                            String Date_name = cursor.getString(1);
-//                            String Group_name = cursor.getString(2);
-//                            String Contents = cursor.getString(3);
-//                            Integer Check_name = cursor.getInt(4);
-//                            String place = cursor.getString(5);//ArrayList로 바꿔야함
-//                            String Start_time = cursor.getString(6);
-//                            String Notice_time = cursor.getString(7);
-//
-//                            System.out.println(_id + " " + Date_name + " " + Group_name + " " + Contents + " " + Check_name + " " + place + " " + temp_start_time + " " + temp_notice_time + "\n");
-//                        }
+                        String todo_insert_sql = "INSERT INTO main_table(Date_name, Group_name, Contents, Check_name, Place, Start_time, Notice_time) VALUES ('"+Date_name+"', '"+Group_name+"', '"+Contents+"', '0', 'null', '"+Start_time+"', '"+Notice_time+"');";
+                        db.execSQL(todo_insert_sql);
+
+                        String test_sql = "SELECT * FROM main_table;";
+                        Cursor cursor = db.rawQuery(test_sql, null);
+
+                        while(cursor.moveToNext()){
+                            System.out.println("날짜 == "+cursor.getString(1)+", 그룹 == "+cursor.getString(2)+", 내용 == "+cursor.getString(3)+", 완료 여부 == "+cursor.getInt(4)+", 위치 == "+cursor.getString(5)+", 시작 시간 == "+cursor.getString(6)+",알림 시간 == "+cursor.getString(7));
+                        }
 //
 //                        Intent intent = new Intent();
 //                        setResult(RESULT_OK, intent);
@@ -212,28 +214,14 @@ public class add_todo extends AppCompatActivity implements main_start_time_fragm
 
     public String time_to_string(String fragment){
         String hour ="", minute ="";
+        String temp_hour = "";
         if(fragment.equals("main_start_time_fragment")){
-//            hour
-//            minute = main_start_time_fragment.temp_minute;
+            temp_hour = temp_hour_start+temp_minute_start;
         }//시작 시간 프래그먼트에서 값 가져오는 경우
-        else{
-//            hour = main_start_time_fragment.temp_hour.toString();
-//            minute = main_start_time_fragment.temp_minute.toString();
+        else if (fragment.equals("main_time_fragment")){
+            temp_hour = temp_hour_notice+temp_minute_notice;
         }//알림 시간 프래그먼트에서 값 가져오는 경우
 
-        String temp_time;
-//        String temp_hour = hour.toString();
-//        String temp_minute = minute.toString();
-//
-//        if(temp_hour.length() == 1){
-//            temp_hour = "0"+temp_hour;
-//        }//0~9시
-//        if(temp_minute.length() == 1){
-//            temp_minute = "0"+temp_minute;
-//        }//0~9분
-
-        temp_time = temp_hour+temp_minute;
-
-        return temp_time;
+        return temp_hour;
     }//선택한 시 분 가져와 4자리 문자열 형태(ex "0900")으로 바꿈
 }
