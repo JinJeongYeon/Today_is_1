@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
      * 1 == main, 2 == memo, 3 == diary, 4 == chart, 5 == settings
      */
 
-    int fragment1 = 1, fragment2 = 2, fragment3 = 3, fragment4 = 4, fragment5 = 5;//각각 메인, 메모, 일기, 통계, 설정
+//    int fragment1 = 1, fragment2 = 2, fragment3 = 3, fragment4 = 4, fragment5 = 5;//각각 메인, 메모, 일기, 통계, 설정
 //    FragmentTransaction fragmentTransaction;
     /////MainAcitivty.java에서 필요한 변수
 
@@ -120,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
         Date date= new Date(now);
         //Log.d("Date",date.toString());
 
-//        year = date.getYear()+1900;
-//        month = date.getMonth()+1;
-//        day = date.getDate();
+        year = date.getYear()+1900;
+        month = date.getMonth()+1;
+        day = date.getDay();
 
         date_textView.setText(year+"년 "+month+"월"); //앱 처음 시작될 때 띄울 디폴트값(현재 년/월) 지정
         Bundle bundle = new Bundle();
@@ -302,26 +302,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        System.out.println("onStart 실행");
     }//onStart
 
     @Override
     protected void onResume() {
         super.onResume();
+        System.out.println("onResume 실행");
     }//onResume
 
     @Override
     protected void onPause() {
         super.onPause();
+        System.out.println("onPause 실행");
     }//onPause
 
     @Override
     protected void onStop() {
         super.onStop();
+        System.out.println("onStop 실행");
     }//onStop
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        System.out.println("onDestroy 실행");
     }//onDestroy
 
     @Override
@@ -359,11 +364,11 @@ public class MainActivity extends AppCompatActivity {
                 add_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Intent intent = new Intent(getApplicationContext(), add_todo.class);
-//                        intent.putExtra("year",year);
-//                        intent.putExtra("month",month);
-//                        intent.putExtra("day",day);
-//                        startActivityForResult(intent,101);
+                        Intent intent = new Intent(getApplicationContext(), add_todo.class);
+                        intent.putExtra("year",year);
+                        intent.putExtra("month",month);
+                        intent.putExtra("day",day);
+                        startActivityForResult(intent,101);
                     }
                 });//ToDo 추가 화면으로 이동
                 break;

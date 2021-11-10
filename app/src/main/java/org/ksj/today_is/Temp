@@ -89,6 +89,8 @@ main_recyclerview.xml(정연)
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 2021.11.09
 - ToDo DB INSERT 구현+테스트 완료
+- ToDo 있는 경우 달력에 . 표시(구현 중)
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 [네이버 지도 연동 정보]
 Application 이름 : TodayIs(영문자, - 만 허용)
@@ -106,7 +108,7 @@ Client Secret(X-NCP-APIGW-API-KEY) : NkysF8ULGyC1oucWDOU0CL5JcAzrKJhBUF3QGr0Z
 - 맞춤법 검사(ex Toast 메시지)
 - 높이 layout_weight -> wrap_content로 수정 필요
 - 그룹 접고 열 때 레이아웃 완전히 접고 펼 수 있게 수정해야 함
-- todo 시작 시간 추가(완료)
+- ToDo 시작 시간 추가(완료)
 - 알림 시간 디자인 수정
 - 구글 맵||네이버 지도
 - 인터넷 연결 안된 경우 구글 맵 사용 불가 처리
